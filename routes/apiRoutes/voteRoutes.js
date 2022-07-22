@@ -29,7 +29,7 @@ router.post('/vote', ({body}, res) => {
 });
 
 //Get a total votes for all the candidates
-router.get('/votes', (res, req) => {
+router.get('/votes', (req, res) => {
     const sql = `SELECT candidates.*, parties.name AS party_name, 
     COUNT(candidate_id) 
     AS count FROM votes 
@@ -38,7 +38,7 @@ router.get('/votes', (res, req) => {
     GROUP BY candidate_id 
     ORDER BY count DESC`;
 
-db,query (sql, (err, rows) => {
+db.query(sql, (err, rows) => {
     if (err) {
         res.status(500).json({ error: err.message});
         return;
